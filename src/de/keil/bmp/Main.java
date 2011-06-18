@@ -37,7 +37,6 @@ public class Main {
 				} else {
 					files.add(new File(arg));
 				}
-
 			}
 		}
 
