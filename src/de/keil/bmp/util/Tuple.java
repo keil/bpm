@@ -2,22 +2,26 @@ package de.keil.bmp.util;
 
 /**
  * @author Matthias
- * 
+ *
  * @param <T0>
  * @param <T1>
+ * @param <T2>
  */
-public class Pair<T0, T1> {
+public class Tuple<T0, T1, T2> {
 	private T0 element0;
 	private T1 element1;
+	private T2 element2;
 
 	/**
 	 * @param arg0
 	 * @param arg1
+	 * @param arg2
 	 */
-	public Pair(T0 arg0, T1 arg1) {
+	public Tuple(T0 arg0, T1 arg1, T2 arg2) {
 		super();
 		this.element0 = arg0;
 		this.element1 = arg1;
+		this.element2 = arg2;
 	}
 
 	/**
@@ -48,6 +52,20 @@ public class Pair<T0, T1> {
 		this.element1 = element1;
 	}
 
+	/**
+	 * @return
+	 */
+	public T2 getElement2() {
+		return element2;
+	}
+
+	/**
+	 * @param element2
+	 */
+	public void setElement2(T2 element2) {
+		this.element2 = element2;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -56,7 +74,7 @@ public class Pair<T0, T1> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pair<?, ?> other = (Pair<?, ?>) obj;
+		Tuple<?, ?, ?> other = (Tuple<?, ?, ?>) obj;
 		if (element0 == null) {
 			if (other.element0 != null)
 				return false;
@@ -67,6 +85,11 @@ public class Pair<T0, T1> {
 				return false;
 		} else if (!element1.equals(other.element1))
 			return false;
+		if (element2 == null) {
+			if (other.element2 != null)
+				return false;
+		} else if (!element2.equals(other.element2))
+			return false;
 		return true;
 	}
 
@@ -76,6 +99,7 @@ public class Pair<T0, T1> {
 		int result = 1;
 		result = prime * result + ((element0 == null) ? 0 : element0.hashCode());
 		result = prime * result + ((element1 == null) ? 0 : element1.hashCode());
+		result = prime * result + ((element2 == null) ? 0 : element2.hashCode());
 		return result;
 	}
 
