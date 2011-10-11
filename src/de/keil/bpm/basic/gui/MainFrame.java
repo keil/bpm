@@ -12,8 +12,16 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import com.sun.tools.javac.code.Attribute.Array;
 
 import de.keil.bpm.basic.core.Calculator;
+
+// TOFDO, nur die letzten 10 werte buchen
+// zweite berechnungsvariante
+// reset taste, menue zum faktor einstellen , tackt einstellen
+
 
 /**
  * @author keil
@@ -21,8 +29,14 @@ import de.keil.bpm.basic.core.Calculator;
  */
 public class MainFrame extends Frame implements WindowListener, KeyListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Long> timestamps;
 	private long lastTimestamp;
+	
+	private ArrayList<Long> timeFrame;
 
 	public MainFrame() {
 		super("basic bpm");
@@ -38,6 +52,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener {
 		setVisible(true);
 
 		timestamps = new ArrayList<Long>();
+		timeFrame = new ArrayList<Long>();
 		lastTimestamp = 0;
 
 		init();
@@ -47,9 +62,14 @@ public class MainFrame extends Frame implements WindowListener, KeyListener {
 	}
 
 	private void init() {
-
 	}
 
+	private void add(long value) {
+		if(timeFrame.size() > 10)
+			timeFrame.remove(0);
+		timeFrame.add(value);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -70,7 +90,9 @@ public class MainFrame extends Frame implements WindowListener, KeyListener {
 			
 			
 			timestamps.add(deltaTimestamp);
-			double meanTimestamp = Calculator.meanFilter(timestamps);
+			add(deltaTimestamp);
+//			double meanTimestamp = Calculator.meanFilter(timestamps);
+			double meanTimestamp = Calculator.meanFilter(timeFrame);
 			
 			/* */ System.out.print(" ### mean delta: " + meanTimestamp);
 			/* */ System.out.print(" ### delta: " + deltaTimestamp);
@@ -97,8 +119,21 @@ public class MainFrame extends Frame implements WindowListener, KeyListener {
 			String result = format.format(meanTacks);
 			
 			System.out.println("##### TACKT " + Math.round(meanTacks));
-			System.out.println("##### TACKT " + result	 + "\n\n");
+			System.out.println("##### TACKT " + result	 + "\n");
 
+			double variance = Calculator.varianceFilter(timestamps);
+			
+			/* */ System.out.println("currwent " + meanTimestamp);
+			/* */ System.out.println("meanTimestamp " + deltaTimestamp);
+			/* */ System.out.println("variance " + variance);
+			
+			double upper = meanTimestamp + variance; 
+			double lower = meanTimestamp - variance;
+			
+			/* */ System.out.println(" ### TACKT(upper) " + format.format((60000/upper)/2));
+			/* */ System.out.println(" ### TACKT(lower) " + format.format((60000/lower)/2));
+			/* */ System.out.print("\n");
+			
 			//lastTimestamp = now;
 
 		}

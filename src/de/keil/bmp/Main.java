@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import de.keil.bmp.model.Frame;
 import de.keil.bmp.option.Options;
 
 /**
@@ -59,6 +60,12 @@ public class Main {
 		
 		
 
+		
+		// Test
+		
+//		Frame f = new Frame();
+
+		
 
 
 	}

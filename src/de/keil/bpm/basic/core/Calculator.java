@@ -24,7 +24,8 @@ public class Calculator {
 		
 		for (long l : source) {
 			double delta = (l-mean);
-			sum += (delta*delta);
+			//sum += Math.pow(delta, 2);
+			sum += Math.abs(delta);
 			counter++;
 		}
 
