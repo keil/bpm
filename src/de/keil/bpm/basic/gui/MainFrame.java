@@ -38,10 +38,10 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Long> timestamps;
-	private long lastTimestamp;
-
-	private ArrayList<Long> timeFrame;
+//	private ArrayList<Long> timestamps;
+//	private long lastTimestamp;
+//
+//	private ArrayList<Long> timeFrame;
 
 	// FONTS
 	private Font fontLabel = new Font(Font.SANS_SERIF, Font.PLAIN, 8);
@@ -76,9 +76,13 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 	// TODO 10 messungs state
 	// TODO: Drop down Box
 
+	Calculator bpmCalculator;
+	
 	public MainFrame() {
 		super("basic bpm");
 
+		bpmCalculator = new Calculator(this);
+		
 		init();
 		clear();
 
@@ -92,10 +96,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 		setLocation(leftLocation, topLocation);
 
 		setVisible(true);
-
-		timestamps = new ArrayList<Long>();
-		timeFrame = new ArrayList<Long>();
-		lastTimestamp = 0;
 
 		addWindowListener(this);
 		addKeyListener(this);
@@ -242,11 +242,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 		lMeanLowerValue.setText(defaultDouble1);
 	}
 
-	private void add(long value) {
-		if (timeFrame.size() > 10)
-			timeFrame.remove(0);
-		timeFrame.add(value);
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -255,67 +251,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-
-		System.out.println("\n##### ENTER");
-
-		if (lastTimestamp == 0) {
-			lastTimestamp = System.currentTimeMillis();
-		} else {
-			long nowTimestamp = System.currentTimeMillis();
-			long deltaTimestamp = nowTimestamp - lastTimestamp;
-			lastTimestamp = nowTimestamp;
-
-			timestamps.add(deltaTimestamp);
-			add(deltaTimestamp);
-			// double meanTimestamp = Calculator.meanFilter(timestamps);
-			double meanTimestamp = Calculator.meanFilter(timeFrame);
-
-			/* */System.out.print(" ### mean delta: " + meanTimestamp);
-			/* */System.out.print(" ### delta: " + deltaTimestamp);
-			/* */System.out.print("\n");
-
-			double meanBreaks = 60000 / meanTimestamp;
-
-			/* */System.out.print(" ### breaks: " + meanBreaks);
-			/* */System.out.print("\n");
-
-			double meanTacks = meanBreaks / 2;
-
-			/* */System.out.print(" ### mean tacks: " + meanTacks);
-			/* */System.out
-					.print(" ### tacks: " + (60000 / deltaTimestamp) / 2);
-			/* */System.out.print("\n");
-
-			// long result = 60000 / delta;
-
-			// System.out.println("### result " + result);
-
-			// long tackt = result / 2;
-
-			DecimalFormat format = new DecimalFormat("0.00");
-			String result = format.format(meanTacks);
-
-			System.out.println("##### TACKT " + Math.round(meanTacks));
-			System.out.println("##### TACKT " + result + "\n");
-
-			double variance = Calculator.varianceFilter(timestamps);
-
-			/* */System.out.println("currwent " + meanTimestamp);
-			/* */System.out.println("meanTimestamp " + deltaTimestamp);
-			/* */System.out.println("variance " + variance);
-
-			double upper = meanTimestamp + variance;
-			double lower = meanTimestamp - variance;
-
-			/* */System.out.println(" ### TACKT(upper) "
-					+ format.format((60000 / upper) / 2));
-			/* */System.out.println(" ### TACKT(lower) "
-					+ format.format((60000 / lower) / 2));
-			/* */System.out.print("\n");
-
-			// lastTimestamp = now;
-
-		}
+		this.bpmCalculator.trigger();
 	}
 
 	/*
