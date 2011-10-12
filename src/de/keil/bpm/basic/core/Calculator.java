@@ -57,7 +57,9 @@ public class Calculator {
 			double lowerBeats = 60000 / lowerTimestamp;
 			double lowerBar = lowerBeats / recordedBeats;
 
+			// TODO: last ten elements
 
+			// TOFO: fehler varianz
 
 			DecimalFormat format1 = new DecimalFormat("0.0");
 			DecimalFormat format2 = new DecimalFormat("0.00");
