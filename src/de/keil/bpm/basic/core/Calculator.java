@@ -14,8 +14,14 @@ public class Calculator {
 
 	private ArrayList<Long> timeFrame;
 	
-	public Calculator(Observer observer) {
+	private int beatsPerBar;
+	private int recordedBeats;
+	
+	public Calculator(Observer observer, int beatsPerBar, int recordedBeats) {
 		this.observer = observer;
+		
+		this.beatsPerBar = beatsPerBar;
+		this.recordedBeats = recordedBeats;
 		
 		timestamps = new ArrayList<Long>();
 		timeFrame = new ArrayList<Long>();
@@ -23,8 +29,6 @@ public class Calculator {
 	}
 	
 	public void trigger() {
-		System.out.println("\n##### ENTER");
-
 		if (lastTimestamp == 0) {
 			lastTimestamp = System.currentTimeMillis();
 		} else {
@@ -34,63 +38,36 @@ public class Calculator {
 
 			timestamps.add(deltaTimestamp);
 			shiftTimeFrame(deltaTimestamp);
-			// double meanTimestamp = Calculator.meanFilter(timestamps);
+			
+			// mean
 			double meanTimestamp = Calculator.meanFilter(timeFrame);
+			double meanBeats = 60000 / meanTimestamp;
+			double meanBar = meanBeats / recordedBeats;
+			
+			// current
+			double currentBeats = 60000 / deltaTimestamp;
+			double currentBar = meanBeats / recordedBeats;
 
-			/* */System.out.print(" ### mean delta: " + meanTimestamp);
-			/* */System.out.print(" ### delta: " + deltaTimestamp);
-			/* */System.out.print("\n");
-
-			double meanBreaks = 60000 / meanTimestamp;
-
-			/* */System.out.print(" ### breaks: " + meanBreaks);
-			/* */System.out.print("\n");
-
-			double meanTacks = meanBreaks / 2;
-
-			/* */System.out.print(" ### mean tacks: " + meanTacks);
-			/* */System.out
-					.print(" ### tacks: " + (60000 / deltaTimestamp) / 2);
-			/* */System.out.print("\n");
-
-			// long result = 60000 / delta;
-
-			// System.out.println("### result " + result);
-
-			// long tackt = result / 2;
-
-			DecimalFormat format = new DecimalFormat("0.00");
-			String result = format.format(meanTacks);
-
-			System.out.println("##### TACKT " + Math.round(meanTacks));
-			System.out.println("##### TACKT " + result + "\n");
-
+			// variance
 			double variance = Calculator.varianceFilter(timestamps);
+			double upperTimestamp = meanTimestamp + variance;
+			double upperBeats = 60000 / upperTimestamp;
+			double upperBar = upperBeats / recordedBeats;
+			double lowerTimestamp = meanTimestamp - variance;
+			double lowerBeats = 60000 / lowerTimestamp;
+			double lowerBar = lowerBeats / recordedBeats;
 
-			/* */System.out.println("currwent " + meanTimestamp);
-			/* */System.out.println("meanTimestamp " + deltaTimestamp);
-			/* */System.out.println("variance " + variance);
 
-			double upper = meanTimestamp + variance;
-			double lower = meanTimestamp - variance;
 
-			/* */System.out.println(" ### TACKT(upper) "
-					+ format.format((60000 / upper) / 2));
-			/* */System.out.println(" ### TACKT(lower) "
-					+ format.format((60000 / lower) / 2));
-			/* */System.out.print("\n");
-
-			// lastTimestamp = now;
-
+			DecimalFormat format1 = new DecimalFormat("0.0");
+			DecimalFormat format2 = new DecimalFormat("0.00");
+			
+			observer.triggerMeanValue(format1.format(meanBar));
+			observer.triggerMeanValueR(Double.toString(Math.round(meanBar)));
+			observer.triggerCurrentValue(format2.format(currentBar));
+			observer.triggerMeanUpperValue(format1.format(upperBar));
+			observer.triggerMeanLowerValue(format1.format(lowerBar));
 		}
-		
-		
-		String value = "@";
-		observer.triggerMeanValue(value);
-		observer.triggerMeanValueR(value);
-		observer.triggerCurrentValue(value);
-		observer.triggerMeanUpperValue(value);
-		observer.triggerMeanLowerValue(value);
 	}
 	
 	private void shiftTimeFrame(long value) {

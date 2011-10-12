@@ -81,7 +81,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 	public MainFrame() {
 		super("basic bpm");
 
-		bpmCalculator = new Calculator(this);
+		bpmCalculator = new Calculator(this, 4, 2); // TODO, selection
 		
 		init();
 		clear();
