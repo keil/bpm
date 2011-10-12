@@ -5,6 +5,7 @@ package de.keil.bpm.basic.gui;
 
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,9 +13,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import com.sun.tools.javac.code.Attribute.Array;
 
 import de.keil.bpm.basic.core.Calculator;
 
@@ -37,6 +35,27 @@ public class MainFrame extends Frame implements WindowListener, KeyListener {
 	private long lastTimestamp;
 	
 	private ArrayList<Long> timeFrame;
+	
+	
+	private Label lMean;
+	private Label lMeanRound;
+	
+	private Label lCurrent;
+	private Label lMeanUpper;
+	private Label lMeanLower;
+	
+	
+	// meant tackt 45.6 
+	// meant tackt 45
+	
+	// current tackt    lower
+	//                  upper
+	
+	
+	
+	
+	
+	
 
 	public MainFrame() {
 		super("basic bpm");
