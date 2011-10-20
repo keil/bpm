@@ -1,4 +1,4 @@
-package de.keil.bmp;
+package de.keil.bpm;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
