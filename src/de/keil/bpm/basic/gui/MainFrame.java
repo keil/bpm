@@ -4,6 +4,7 @@
 package de.keil.bpm.basic.gui;
 
 import java.awt.Button;
+import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,6 +14,10 @@ import java.awt.GridBagLayout;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -20,7 +25,9 @@ import java.awt.event.WindowListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import de.keil.bpm.basic.core.Beat;
 import de.keil.bpm.basic.core.Calculator;
+import de.keil.bpm.basic.core.Measure;
 import de.keil.bpm.basic.interfaces.Observer;
 
 // TOFDO, nur die letzten 10 werte buchen
@@ -31,17 +38,16 @@ import de.keil.bpm.basic.interfaces.Observer;
  * @author keil
  * 
  */
-public class MainFrame extends Frame implements WindowListener, KeyListener,
-		Observer {
+public class MainFrame extends Frame implements WindowListener, KeyListener, Observer {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-//	private ArrayList<Long> timestamps;
-//	private long lastTimestamp;
-//
-//	private ArrayList<Long> timeFrame;
+	// private ArrayList<Long> timestamps;
+	// private long lastTimestamp;
+	//
+	// private ArrayList<Long> timeFrame;
 
 	// FONTS
 	private Font fontLabel = new Font(Font.SANS_SERIF, Font.PLAIN, 8);
@@ -60,7 +66,13 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 	private Button bClear;
 	private Button bStart;
 
+	private Choice cBeat;
+	private Choice cMeasure;
+
 	// LABELS
+	private Label lBeat;
+	private Label lMeasure;
+
 	private Label lMeanLabel;
 	private Label lMeanValue;
 	private Label lMeanLabelR;
@@ -76,14 +88,19 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 	// TODO 10 messungs state
 	// TODO: Drop down Box
 
-	Calculator bpmCalculator;
-	
+	private Calculator bpmCalculator;
+
+	private Beat defaultBeat = Beat.BEAT44;
+	private Measure defaultMeasure = Measure.BEATS2;
+
 	public MainFrame() {
 		super("basic bpm");
 
-		bpmCalculator = new Calculator(this, 4, 2); // TODO, selection
-		
-		init();
+		// bpmCalculator = new Calculator(defaultBeats, defaultMeasure, this);
+		// // TODO, selection
+
+		initCalculator();
+		initGUI();
 		clear();
 
 		Dimension frameSize = new Dimension(400, 600);
@@ -101,7 +118,11 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 		addKeyListener(this);
 	}
 
-	private void init() {
+	private void initCalculator() {
+		bpmCalculator = new Calculator(defaultBeat, defaultMeasure, this);
+	}
+
+	private void initGUI() {
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		setLayout(layout);
@@ -128,15 +149,86 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 		// TOP
 		// ////////////////////////////////////////////////
 
-		bClear = new Button("clear");// TODO: action Listener
+		lBeat = new Label("Beat:");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		topPanel.add(bClear, c);
+		c.weightx = 100;
+		topPanel.add(lBeat, c);
 
-		bStart = new Button("start");// TODO: how to run ?
+		cBeat = new Choice();
+		cBeat.add(Beat.BEAT44.toString());
+		cBeat.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getItem().toString().equals(Beat.BEAT44)) {
+					defaultBeat = Beat.BEAT44;
+				}
+				initCalculator();
+				clear();
+			}
+		});
+		cBeat.select(0);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 0;
+		c.weightx = 100;
+		topPanel.add(cBeat, c);
+
+		lMeasure = new Label("Measure:");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
+		c.gridy = 1;
+		c.weightx = 100;
+		topPanel.add(lMeasure, c);
+
+		cMeasure = new Choice();
+		cMeasure.add(Measure.BEATS1.toString());
+		cMeasure.add(Measure.BEATS2.toString());
+		cMeasure.add(Measure.BEATS4.toString());
+		cMeasure.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getItem().toString().equals(Measure.BEATS1)) {
+					defaultMeasure = Measure.BEATS1;
+				} else if (e.getItem().toString().equals(Measure.BEATS2)) {
+					defaultMeasure = Measure.BEATS2;
+				} else if (e.getItem().toString().equals(Measure.BEATS4)) {
+					defaultMeasure = Measure.BEATS4;
+				}
+				initCalculator();
+				clear();
+			}
+		});
+		cMeasure.select(1);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 1;
+		c.weightx = 100;
+		topPanel.add(cMeasure, c);
+
+		bClear = new Button("clear");
+		bClear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clear();
+			}
+		});
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 0;
+		topPanel.add(bClear, c);
+
+		bStart = new Button("start");
+		bStart.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				requestFocus();
+			}
+		});
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
 		c.gridy = 0;
 		topPanel.add(bStart, c);
 
@@ -214,12 +306,17 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 		// BASE
 		// ////////////////////////////////////////////////
 
-		// c.fill = GridBagConstraints.HORIZONTAL;
-		// c.weighty = 100;
-		// c.gridx = 0;
-		// c.gridy = 0;
-		// add(topPanel, c);
+		// c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 2;
+		c.weightx = 400;
+		c.weighty = 0;
+		c.gridx = 0;
+		c.gridy = 0;
+		add(topPanel, c);
 
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
 		c.weightx = 300;
 		c.weighty = 200;
 		c.gridx = 0;
@@ -241,8 +338,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 		lMeanUpperValue.setText(defaultDouble1);
 		lMeanLowerValue.setText(defaultDouble1);
 	}
-
-	
 
 	/*
 	 * (non-Javadoc)
@@ -363,39 +458,56 @@ public class MainFrame extends Frame implements WindowListener, KeyListener,
 
 	/*
 	 * (non-Javadoc)
-	 * @see de.keil.bpm.basic.interfaces.Observer#triggerMeanValue(java.lang.String)
+	 * 
+	 * @see
+	 * de.keil.bpm.basic.interfaces.Observer#triggerMeanValue(java.lang.String)
 	 */
 	@Override
 	public void triggerMeanValue(String value) {
 		lMeanValue.setText(value);
 	}
 
-	/* (non-Javadoc)
-	 * @see de.keil.bpm.basic.interfaces.Observer#triggerMeanValueR(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.keil.bpm.basic.interfaces.Observer#triggerMeanValueR(java.lang.String)
 	 */
 	@Override
 	public void triggerMeanValueR(String value) {
 		lMeanValueR.setText(value);
 	}
 
-	/* (non-Javadoc)
-	 * @see de.keil.bpm.basic.interfaces.Observer#triggerCurrentValue(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.keil.bpm.basic.interfaces.Observer#triggerCurrentValue(java.lang.String
+	 * )
 	 */
 	@Override
 	public void triggerCurrentValue(String value) {
 		lCurrentValue.setText(value);
 	}
 
-	/* (non-Javadoc)
-	 * @see de.keil.bpm.basic.interfaces.Observer#triggerMeanUpperValue(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.keil.bpm.basic.interfaces.Observer#triggerMeanUpperValue(java.lang
+	 * .String)
 	 */
 	@Override
 	public void triggerMeanUpperValue(String value) {
 		lMeanUpperValue.setText(value);
 	}
 
-	/* (non-Javadoc)
-	 * @see de.keil.bpm.basic.interfaces.Observer#triggerMeanLowerValue(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.keil.bpm.basic.interfaces.Observer#triggerMeanLowerValue(java.lang
+	 * .String)
 	 */
 	@Override
 	public void triggerMeanLowerValue(String value) {

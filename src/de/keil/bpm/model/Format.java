@@ -1,4 +1,4 @@
-package de.keil.bmp.model;
+package de.keil.bpm.model;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioFormat.Encoding;
