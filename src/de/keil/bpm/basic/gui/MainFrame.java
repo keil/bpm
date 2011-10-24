@@ -30,7 +30,6 @@ import de.keil.bpm.basic.core.Calculator;
 import de.keil.bpm.basic.core.Measure;
 import de.keil.bpm.basic.interfaces.Observer;
 
-// TOFDO, nur die letzten 10 werte buchen
 // zweite berechnungsvariante
 // reset taste, menue zum faktor einstellen , tackt einstellen
 
@@ -90,6 +89,12 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	private Label lMean10LabelRounded;
 	private Label lMean10ValueRounded;
 
+	
+	// 
+	
+	private Label lActive;
+	
+	
 	// TODO 10 messungs state
 	// TODO: Drop down Box
 
@@ -266,6 +271,17 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c.gridx = 1;
 		c.gridy = 1;
 		leftPanel.add(lMeanValueRounded, c);
+
+		// color green
+		// blink
+		lActive = new Label("[active]");
+		lActive.setSize(100, 100);
+		lActive.setBackground(Color.green);
+		c.fill = GridBagConstraints.CENTER;
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridwidth = 2;
+		leftPanel.add(lActive, c);
 
 		// ////////////////////////////////////////////////
 		// RIGHT
