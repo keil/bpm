@@ -33,10 +33,6 @@ public class Calculator {
 	private ArrayList<Long> timeFrame;
 
 	/**
-	 * base beat
-	 */
-	private int beat;
-	/**
 	 * base measure
 	 */
 	private int measure;
@@ -57,9 +53,7 @@ public class Calculator {
 	public Calculator(Beat beat, Measure measure) {
 		this.observer = new ArrayList<Observer>();
 
-		// TODO berechnen
-		this.beat = beat.beats();
-		this.measure = measure.beats();
+		this.measure = beat.beats() / measure.beats();
 
 		this.deltaTimestamps = new ArrayList<Long>();
 		this.timeFrame = new ArrayList<Long>();
