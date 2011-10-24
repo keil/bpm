@@ -75,8 +75,8 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 	private Label lMeanLabel;
 	private Label lMeanValue;
-	private Label lMeanLabelR;
-	private Label lMeanValueR;
+	private Label lMeanLabelRounded;
+	private Label lMeanValueRounded;
 
 	private Label lCurrentLabel;
 	private Label lCurrentValue;
@@ -84,6 +84,11 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	private Label lMeanUpperValue;
 	private Label lMeanLowerLabel;
 	private Label lMeanLowerValue;
+
+	private Label lMean10Label;
+	private Label lMean10Value;
+	private Label lMean10LabelRounded;
+	private Label lMean10ValueRounded;
 
 	// TODO 10 messungs state
 	// TODO: Drop down Box
@@ -249,18 +254,18 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c.gridy = 0;
 		leftPanel.add(lMeanValue, c);
 
-		lMeanLabelR = new Label("Mean");
+		lMeanLabelRounded = new Label("Mean");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
-		leftPanel.add(lMeanLabelR, c);
+		leftPanel.add(lMeanLabelRounded, c);
 
-		lMeanValueR = new Label(defaultNumber);
-		lMeanValueR.setFont(fontValueNormal);
+		lMeanValueRounded = new Label(defaultNumber);
+		lMeanValueRounded.setFont(fontValueNormal);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 1;
-		leftPanel.add(lMeanValueR, c);
+		leftPanel.add(lMeanValueRounded, c);
 
 		// ////////////////////////////////////////////////
 		// RIGHT
@@ -302,6 +307,41 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c.gridy = 2;
 		rightPanel.add(lMeanLowerValue, c);
 
+		// /////////
+
+		// TODO SPACE LINE
+		
+		// /////////
+
+		// /////
+
+		// TODO: erster größer
+		lMean10Label = new Label("Frame");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 3;
+		rightPanel.add(lMean10Label, c);
+
+		lMean10Value = new Label(defaultDouble1);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 3;
+		rightPanel.add(lMean10Value, c);
+
+		lMean10LabelRounded = new Label("Frame");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 4;
+		rightPanel.add(lMean10LabelRounded, c);
+
+		lMean10ValueRounded = new Label(defaultNumber);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 4;
+		rightPanel.add(lMean10ValueRounded, c);
+
+		// TODO Active panel
+
 		// ////////////////////////////////////////////////
 		// BASE
 		// ////////////////////////////////////////////////
@@ -333,10 +373,12 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 	private void clear() {
 		lMeanValue.setText(defaultDouble1);
-		lMeanValueR.setText(defaultNumber);
+		lMeanValueRounded.setText(defaultNumber);
 		lCurrentValue.setText(defaultDouble2);
 		lMeanUpperValue.setText(defaultDouble1);
 		lMeanLowerValue.setText(defaultDouble1);
+		lMean10Value.setText(defaultDouble1);
+		lMean10ValueRounded.setText(defaultNumber);
 	}
 
 	/*
@@ -474,8 +516,8 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 * de.keil.bpm.basic.interfaces.Observer#triggerMeanValueR(java.lang.String)
 	 */
 	@Override
-	public void triggerMeanValueR(String value) {
-		lMeanValueR.setText(value);
+	public void triggerMeanValueRounded(String value) {
+		lMeanValueRounded.setText(value);
 	}
 
 	/*
@@ -512,6 +554,30 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	@Override
 	public void triggerMeanLowerValue(String value) {
 		lMeanLowerValue.setText(value);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.keil.bpm.basic.interfaces.Observer#triggerMean10Value(java.lang.String
+	 * )
+	 */
+	@Override
+	public void triggerMean10Value(String value) {
+		lMean10Value.setText(value);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.keil.bpm.basic.interfaces.Observer#triggerMean10ValueRounded(java.
+	 * lang.String)
+	 */
+	@Override
+	public void triggerMean10ValueRounded(String value) {
+		lMean10ValueRounded.setText(value);
 	}
 
 }

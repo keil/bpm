@@ -8,22 +8,48 @@ import java.util.List;
 
 import de.keil.bpm.basic.interfaces.Observer;
 
+/**
+ * @author Roman Matthias Keil
+ */
 public class Calculator {
 
+	/**
+	 * observer
+	 */
 	private List<Observer> observer;
-	
+
+	/**
+	 * list of delta timestamps
+	 */
 	private ArrayList<Long> deltaTimestamps;
+	/**
+	 * last timestamp
+	 */
 	private long lastTimestamp;
 
+	/**
+	 * list of delta timestamps
+	 */
 	private ArrayList<Long> timeFrame;
-	
-	private int beats;
+
+	/**
+	 * base beat
+	 */
+	private int beat;
+	/**
+	 * base measure
+	 */
 	private int measure;
-	
-	// formatter
+
+	/**
+	 * standard formatter
+	 */
 	private DecimalFormat format1 = new DecimalFormat("0.0");
+	/**
+	 * standard formatter
+	 */
 	private DecimalFormat format2 = new DecimalFormat("0.00");
-	
+
 	/**
 	 * @param beats
 	 * @param measure
@@ -31,14 +57,15 @@ public class Calculator {
 	public Calculator(Beat beat, Measure measure) {
 		this.observer = new ArrayList<Observer>();
 
-		this.beats = beat.beats();
+		// TODO berechnen
+		this.beat = beat.beats();
 		this.measure = measure.beats();
 
 		this.deltaTimestamps = new ArrayList<Long>();
 		this.timeFrame = new ArrayList<Long>();
 		this.lastTimestamp = 0;
 	}
-	
+
 	/**
 	 * @param beats
 	 * @param measure
@@ -47,16 +74,16 @@ public class Calculator {
 	public Calculator(Beat beat, Measure measure, Observer... observers) {
 		this(beat, measure);
 		for (Observer observer : observers) {
-			this.observer.add(observer);	
+			this.observer.add(observer);
 		}
 	}
-	
+
 	/**
 	 * @param observers
 	 */
 	public void addObserver(Observer... observers) {
 		for (Observer observer : observers) {
-			this.observer.add(observer);	
+			this.observer.add(observer);
 		}
 	}
 
@@ -65,75 +92,88 @@ public class Calculator {
 	 */
 	public void removeObserver(Observer... observers) {
 		for (Observer observer : observers) {
-			this.observer.remove(observer);	
+			this.observer.remove(observer);
 		}
 	}
-	
+
+	// ////////////////////////////////////////////////
+	// TRIGGER CALCULATOR
+	// ////////////////////////////////////////////////
+
 	/**
 	 * triggers new signal
+	 */
+	/**
+	 * 
 	 */
 	public void trigger() {
 		if (lastTimestamp == 0) {
 			lastTimestamp = System.currentTimeMillis();
 		} else {
+			// timestamp
 			long nowTimestamp = System.currentTimeMillis();
 			long deltaTimestamp = nowTimestamp - lastTimestamp;
 			lastTimestamp = nowTimestamp;
 
+			// set timestamp
 			deltaTimestamps.add(deltaTimestamp);
 			shiftTimeFrame(deltaTimestamp);
-			
+
 			// mean
-			// TODO, do not use 10er variant
 			double meanTimestamp = Calculator.meanFilter(deltaTimestamps);
-			double meanBeats = 60000 / meanTimestamp;
-			double meanBar = meanBeats / measure;
-			
-//			double meanTimestamp = Calculator.meanFilter(timeFrame);
-//			double meanBeats = 60000 / meanTimestamp;
-//			double meanBar = meanBeats / recordedBeats;
-			
+			double meanMeasure = 60000 / meanTimestamp;
+			double meanBeat = meanMeasure / measure;
+
+			// frame
+			double meanFrameTimestamp = Calculator.meanFilter(timeFrame);
+			double meanFrameMeasure = 60000 / meanFrameTimestamp;
+			double meanFrameBeat = meanFrameMeasure / measure;
+
 			// current
-			double currentBeats = 60000 / deltaTimestamp;
-			double currentBar = meanBeats / measure;
+			double currentMeasure = 60000 / deltaTimestamp;
+			double currentBeat = currentMeasure / measure;
 
 			// variance
 			double variance = Calculator.varianceFilter(deltaTimestamps);
 			double upperTimestamp = meanTimestamp - variance;
-			double upperBeats = 60000 / upperTimestamp;
-			double upperBar = upperBeats / measure;
+			double upperMeasure = 60000 / upperTimestamp;
+			double upperBeat = upperMeasure / measure;
 			double lowerTimestamp = meanTimestamp + variance;
-			double lowerBeats = 60000 / lowerTimestamp;
-			double lowerBar = lowerBeats / measure;
+			double lowerMeasure = 60000 / lowerTimestamp;
+			double lowerBeat = lowerMeasure / measure;
 
-			// TODO: last ten elements
-
-			// TOFO: fehler varianz
-
-
-
-			// call observer 
+			// call observer
 			for (Observer observer : this.observer) {
-				observer.triggerMeanValue(format1.format(meanBar));
-				observer.triggerMeanValueR(Double.toString(Math.round(meanBar)));
-				observer.triggerCurrentValue(format2.format(currentBar));
-				observer.triggerMeanUpperValue(format1.format(upperBar));
-				observer.triggerMeanLowerValue(format1.format(lowerBar));
+				// mean value
+				observer.triggerMeanValue(format1.format(meanBeat));
+				observer.triggerMeanValueRounded(Double.toString(Math.round(meanBeat)));
+
+				// current
+				observer.triggerCurrentValue(format2.format(currentBeat));
+				// variance
+				observer.triggerMeanUpperValue(format1.format(upperBeat));
+				observer.triggerMeanLowerValue(format1.format(lowerBeat));
+
+				// mean10
+				observer.triggerMean10Value(format1.format(meanFrameBeat));
+				observer.triggerMean10ValueRounded(Double.toString(Math.round(meanFrameBeat)));
 			}
 		}
 	}
-	
+
+	/**
+	 * @param value
+	 */
 	private void shiftTimeFrame(long value) {
 		if (timeFrame.size() > 10)
 			timeFrame.remove(0);
 		timeFrame.add(value);
 	}
-	
-	
-	//////////////////////////////////////////////////
+
+	// ////////////////////////////////////////////////
 	// STATIC
-	//////////////////////////////////////////////////
-	
+	// ////////////////////////////////////////////////
+
 	/**
 	 * @param source
 	 * @return
@@ -147,7 +187,7 @@ public class Calculator {
 			sum += l;
 		}
 
-		return sum/counter;
+		return sum / counter;
 	}
 
 	/**
@@ -158,12 +198,12 @@ public class Calculator {
 		double mean = Calculator.meanFilter(source);
 		int counter = 0;
 		double sum = 0;
-		
+
 		for (long l : source) {
-			double delta = (l-mean);
+			double delta = (l - mean);
 			sum += Math.abs(delta);
 			counter++;
 		}
-		return sum/counter;
+		return sum / counter;
 	}
 }

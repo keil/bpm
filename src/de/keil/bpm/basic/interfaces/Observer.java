@@ -13,7 +13,7 @@ public interface Observer {
 	/**
 	 * @param value
 	 */
-	void triggerMeanValueR(String value);
+	void triggerMeanValueRounded(String value);
 
 	/**
 	 * @param value
@@ -29,4 +29,16 @@ public interface Observer {
 	 * @param value
 	 */
 	void triggerMeanLowerValue(String value);
+
+	/**
+	 * @param value
+	 */
+	void triggerMean10Value(String value);
+
+	/**
+	 * @param value
+	 */
+	void triggerMean10ValueRounded(String value);
+
+
 }
