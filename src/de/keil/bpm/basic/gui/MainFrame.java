@@ -20,6 +20,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.DecimalFormat;
@@ -234,18 +236,50 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		bStart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				requestFocus();
+				activate();
 			}
 		});
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 0;
 		topPanel.add(bStart, c);
+		
+		// color green
+		// blink
+		// set key listener
+		lActive = new Label("[active]");
+		lActive.setAlignment(Label.CENTER);
+		lActive.setBackground(Color.green);
+		lActive.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				activate();
+			}
+		});
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridwidth = 4;
+		c.ipady = 100;
+		topPanel.add(lActive, c);
 
 		// ////////////////////////////////////////////////
 		// LEFT
 		// ////////////////////////////////////////////////
-
+		c = new GridBagConstraints();
+		
 		lMeanLabel = new Label("Mean");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -267,21 +301,10 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 		lMeanValueRounded = new Label(defaultNumber);
 		lMeanValueRounded.setFont(fontValueNormal);
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 1;
 		c.gridy = 1;
 		leftPanel.add(lMeanValueRounded, c);
-
-		// color green
-		// blink
-		lActive = new Label("[active]");
-		lActive.setSize(100, 100);
-		lActive.setBackground(Color.green);
-		c.fill = GridBagConstraints.CENTER;
-		c.gridx = 0;
-		c.gridy = 2;
-		c.gridwidth = 2;
-		leftPanel.add(lActive, c);
 
 		// ////////////////////////////////////////////////
 		// RIGHT
@@ -387,6 +410,17 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 	}
 
+	private void activate() {
+		requestFocus();
+		// TODO
+		lActive.setBackground(Color.GREEN);
+	}
+	
+	private void deactivate() {
+		// TODO
+		lActive.setBackground(Color.GRAY);
+	}
+	
 	private void clear() {
 		lMeanValue.setText(defaultDouble1);
 		lMeanValueRounded.setText(defaultNumber);
@@ -395,6 +429,9 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		lMeanLowerValue.setText(defaultDouble1);
 		lMean10Value.setText(defaultDouble1);
 		lMean10ValueRounded.setText(defaultNumber);
+		
+		// deactivate panel
+		deactivate();
 	}
 
 	/*
@@ -462,7 +499,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		System.exit(NORMAL);
-
 	}
 
 	/*
