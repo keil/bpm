@@ -24,16 +24,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import de.keil.bpm.basic.core.Beat;
 import de.keil.bpm.basic.core.Calculator;
 import de.keil.bpm.basic.core.Measure;
 import de.keil.bpm.basic.interfaces.Observer;
-
-// zweite berechnungsvariante
-// reset taste, menue zum faktor einstellen , tackt einstellen
+ 
+// TODO: todo
+// - zweite berechnungsvariante
+// - pack()
 
 /**
  * @author keil
@@ -91,12 +90,10 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	private Label lMean10LabelRounded;
 	private Label lMean10ValueRounded;
 
-	
-	// 
-	
+	//
+
 	private Label lActive;
-	
-	
+
 	// TODO 10 messungs state
 	// TODO: Drop down Box
 
@@ -160,7 +157,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// ////////////////////////////////////////////////
 		// TOP
 		// ////////////////////////////////////////////////
-
+		
 		lBeat = new Label("Beat:");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -254,15 +251,19 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			}
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 			}
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				activate();
@@ -279,7 +280,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// LEFT
 		// ////////////////////////////////////////////////
 		c = new GridBagConstraints();
-		
+
 		lMeanLabel = new Label("Mean");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -349,7 +350,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// /////////
 
 		// TODO SPACE LINE
-		
+
 		// /////////
 
 		// /////
@@ -415,12 +416,12 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// TODO
 		lActive.setBackground(Color.GREEN);
 	}
-	
+
 	private void deactivate() {
 		// TODO
 		lActive.setBackground(Color.GRAY);
 	}
-	
+
 	private void clear() {
 		lMeanValue.setText(defaultDouble1);
 		lMeanValueRounded.setText(defaultNumber);
@@ -429,7 +430,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		lMeanLowerValue.setText(defaultDouble1);
 		lMean10Value.setText(defaultDouble1);
 		lMean10ValueRounded.setText(defaultNumber);
-		
+
 		// deactivate panel
 		deactivate();
 	}
