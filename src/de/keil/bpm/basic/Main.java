@@ -14,7 +14,7 @@ public class Main {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		splash.close();
+		if(splash!=null) splash.close();
 
 		// Main Frame
 		new MainFrame();
