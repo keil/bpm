@@ -50,12 +50,22 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	// private ArrayList<Long> timeFrame;
 
 	// FONTS
-	private Font fontLabel = new Font(Font.SANS_SERIF, Font.PLAIN, 8);
+	private Font fontLabelBig = new Font(Font.SANS_SERIF, Font.PLAIN, 16);
+	private Font fontLabelSmall = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+	private Font fontValueSmall= new Font(Font.SANS_SERIF, Font.PLAIN, 20);
 	private Font fontValueNormal = new Font(Font.SANS_SERIF, Font.PLAIN, 28);
 	private Font fontValueBig = new Font(Font.SANS_SERIF, Font.PLAIN, 32);
 
 	// COLORS
 	// TODO: Colors
+	private Color headColor = new Color(204, 204, 204);
+	private Color bodyColor = new Color(221, 221, 221);
+	private Color redColor = new Color(204, 00, 00);
+	private Color greenColor = new Color(00, 204, 00);
+
+	private Color blueColor = new Color(00, 44, 77);
+	private Color grayColor = new Color(33, 33, 33);
+	
 
 	// DEFAULT TEXT
 	private String defaultNumber = "00";
@@ -111,6 +121,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		initCalculator();
 		initGUI();
 		clear();
+		
 
 		Dimension frameSize = new Dimension(400, 600);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -125,6 +136,10 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 		addWindowListener(this);
 		addKeyListener(this);
+		
+		// TODO
+		pack();
+		requestFocus();
 	}
 
 	private void initCalculator() {
@@ -139,19 +154,19 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// TOP PANEL
 		Panel topPanel = new Panel();
 		topPanel.setSize(new Dimension(500, 100));
-		topPanel.setBackground(Color.PINK); // TODO
+		topPanel.setBackground(headColor);
 		topPanel.setLayout(new GridBagLayout());
 
 		// LEFT PANEL
 		Panel leftPanel = new Panel();
 		leftPanel.setSize(300, 200);
-		leftPanel.setBackground(Color.DARK_GRAY); // TODO
+		leftPanel.setBackground(bodyColor);
 		leftPanel.setLayout(new GridBagLayout());
 
 		// RIGHT PANEL
 		Panel rightPanel = new Panel();
 		rightPanel.setSize(200, 400);
-		rightPanel.setBackground(Color.BLUE); // TODO
+		rightPanel.setBackground(bodyColor);
 		rightPanel.setLayout(new GridBagLayout());
 
 		// ////////////////////////////////////////////////
@@ -159,6 +174,8 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// ////////////////////////////////////////////////
 		
 		lBeat = new Label("Beat:");
+		lBeat.setFont(fontLabelSmall);
+		lBeat.setForeground(grayColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -186,6 +203,8 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		topPanel.add(cBeat, c);
 
 		lMeasure = new Label("Measure:");
+		lMeasure.setFont(fontLabelSmall);
+		lMeasure.setForeground(grayColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
@@ -244,9 +263,9 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// color green
 		// blink
 		// set key listener
-		lActive = new Label("[active]");
+		lActive = new Label("IDLE");
 		lActive.setAlignment(Label.CENTER);
-		lActive.setBackground(Color.green);
+		lActive.setBackground(redColor);
 		lActive.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -282,6 +301,8 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c = new GridBagConstraints();
 
 		lMeanLabel = new Label("Mean");
+		lMeanLabel.setFont(fontLabelBig);
+		lMeanLabel.setForeground(grayColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -289,12 +310,15 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 		lMeanValue = new Label(defaultDouble1);
 		lMeanValue.setFont(fontValueBig);
+		lMeanValue.setForeground(blueColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 0;
 		leftPanel.add(lMeanValue, c);
 
 		lMeanLabelRounded = new Label("Mean");
+		lMeanLabelRounded.setFont(fontLabelBig);
+		lMeanLabelRounded.setForeground(grayColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
@@ -302,6 +326,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 		lMeanValueRounded = new Label(defaultNumber);
 		lMeanValueRounded.setFont(fontValueNormal);
+		lMeanValueRounded.setForeground(blueColor);
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 1;
 		c.gridy = 1;
@@ -312,36 +337,48 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// ////////////////////////////////////////////////
 
 		lCurrentLabel = new Label("Current");
+		lCurrentLabel.setFont(fontLabelSmall);
+		lCurrentLabel.setForeground(grayColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		rightPanel.add(lCurrentLabel, c);
 
 		lCurrentValue = new Label(defaultDouble2);
+		lCurrentValue.setFont(fontValueSmall);
+		lCurrentValue.setForeground(blueColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 0;
 		rightPanel.add(lCurrentValue, c);
 
 		lMeanUpperLabel = new Label("Upper Variance");
+		lMeanUpperLabel.setFont(fontLabelSmall);
+		lMeanUpperLabel.setForeground(grayColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
 		rightPanel.add(lMeanUpperLabel, c);
 
 		lMeanUpperValue = new Label(defaultDouble1);
+		lMeanUpperValue.setFont(fontValueSmall);
+		lMeanUpperValue.setForeground(blueColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 1;
 		rightPanel.add(lMeanUpperValue, c);
 
 		lMeanLowerLabel = new Label("Lower Variance");
+		lMeanLowerLabel.setFont(fontLabelSmall);
+		lMeanLowerLabel.setForeground(grayColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 2;
 		rightPanel.add(lMeanLowerLabel, c);
 
 		lMeanLowerValue = new Label(defaultDouble1);
+		lMeanLowerValue.setFont(fontValueSmall);
+		lMeanLowerValue.setForeground(blueColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 2;
@@ -357,24 +394,32 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 		// TODO: erster größer
 		lMean10Label = new Label("Frame");
+		lMean10Label.setFont(fontLabelSmall);
+		lMean10Label.setForeground(grayColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 3;
 		rightPanel.add(lMean10Label, c);
 
 		lMean10Value = new Label(defaultDouble1);
+		lMean10Value.setFont(fontValueSmall);
+		lMean10Value.setForeground(blueColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 3;
 		rightPanel.add(lMean10Value, c);
 
 		lMean10LabelRounded = new Label("Frame");
+		lMean10LabelRounded.setFont(fontLabelSmall);
+		lMean10LabelRounded.setForeground(grayColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 4;
 		rightPanel.add(lMean10LabelRounded, c);
 
 		lMean10ValueRounded = new Label(defaultNumber);
+		lMean10ValueRounded.setFont(fontValueSmall);
+		lMean10ValueRounded.setForeground(blueColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 4;
@@ -386,42 +431,53 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// BASE
 		// ////////////////////////////////////////////////
 
-		// c = new GridBagConstraints();
+		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.PAGE_START;
 		c.gridwidth = 2;
-		c.weightx = 400;
-		c.weighty = 0;
+		c.weightx = 1;
+		//c.weighty = 1;
 		c.gridx = 0;
 		c.gridy = 0;
+//		c.ipadx = 300;
+//		c.ipady = 100;
 		add(topPanel, c);
-
-		c.fill = GridBagConstraints.HORIZONTAL;
+		
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
 		c.gridwidth = 1;
-		c.weightx = 300;
-		c.weighty = 200;
 		c.gridx = 0;
 		c.gridy = 1;
 		add(leftPanel, c);
 
-		c.weightx = 200;
-		c.weighty = 400;
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 1;
 		c.gridy = 1;
 		add(rightPanel, c);
 
 	}
 
+	/**
+	 * set panel color, requests the focus
+	 */
 	private void activate() {
 		requestFocus();
-		// TODO
-		lActive.setBackground(Color.GREEN);
+		lActive.setText("RECORD");
+		lActive.setBackground(greenColor);
 	}
 
+	/**
+	 * set panel color
+	 */
 	private void deactivate() {
-		// TODO
-		lActive.setBackground(Color.GRAY);
+		lActive.setText("IDLE");
+		lActive.setBackground(redColor);
 	}
 
+	/**
+	 * clears the values
+	 */
 	private void clear() {
 		lMeanValue.setText(defaultDouble1);
 		lMeanValueRounded.setText(defaultNumber);
@@ -431,7 +487,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		lMean10Value.setText(defaultDouble1);
 		lMean10ValueRounded.setText(defaultNumber);
 
-		// deactivate panel
+		// disable panel
 		deactivate();
 	}
 
@@ -452,8 +508,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -463,8 +517,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -475,8 +527,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 */
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -487,8 +537,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 */
 	@Override
 	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -511,8 +559,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 */
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -524,8 +570,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 */
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -536,8 +580,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 */
 	@Override
 	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -548,7 +590,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 */
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 	}
 
 	/*
