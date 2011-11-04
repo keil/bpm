@@ -35,29 +35,40 @@ public class Calculator {
 	/**
 	 * base measure
 	 */
-	private int measure;
+	private int factor;
+
+	/**
+	 * beat
+	 */
+	private Beat beat;
+	/**
+	 * measure
+	 */
+	private Measure measure;
 
 	/**
 	 * standard formatter
 	 */
-	private DecimalFormat format1 = new DecimalFormat("0.0");
+	private final DecimalFormat format0 = new DecimalFormat("0");
 	/**
 	 * standard formatter
 	 */
-	private DecimalFormat format2 = new DecimalFormat("0.00");
+	private final DecimalFormat format1 = new DecimalFormat("0.0");
+	/**
+	 * standard formatter
+	 */
+	private final DecimalFormat format2 = new DecimalFormat("0.00");
+	
 
 	/**
 	 * @param beats
 	 * @param measure
 	 */
 	public Calculator(Beat beat, Measure measure) {
+		this.beat = beat;
+		this.measure = measure;
 		this.observer = new ArrayList<Observer>();
-
-		this.measure = beat.beats() / measure.beats();
-
-		this.deltaTimestamps = new ArrayList<Long>();
-		this.timeFrame = new ArrayList<Long>();
-		this.lastTimestamp = 0;
+		initCalculator();
 	}
 
 	/**
@@ -71,6 +82,23 @@ public class Calculator {
 			this.observer.add(observer);
 		}
 	}
+
+	/**
+	 * @param beat
+	 * @param measure
+	 */
+	private void initCalculator() {
+		this.factor = beat.beats() / measure.beats();
+		/* TODO */System.out.println(this.factor);
+
+		this.deltaTimestamps = new ArrayList<Long>();
+		this.timeFrame = new ArrayList<Long>();
+		this.lastTimestamp = 0;
+	}
+
+	// ////////////////////////////////////////////////
+	// OBSERVER
+	// ////////////////////////////////////////////////
 
 	/**
 	 * @param observers
@@ -97,9 +125,6 @@ public class Calculator {
 	/**
 	 * triggers new signal
 	 */
-	/**
-	 * 
-	 */
 	public void trigger() {
 		if (lastTimestamp == 0) {
 			lastTimestamp = System.currentTimeMillis();
@@ -116,31 +141,31 @@ public class Calculator {
 			// mean
 			double meanTimestamp = Calculator.meanFilter(deltaTimestamps);
 			double meanMeasure = 60000 / meanTimestamp;
-			double meanBeat = meanMeasure / measure;
+			double meanBeat = meanMeasure / factor;
 
 			// frame
 			double meanFrameTimestamp = Calculator.meanFilter(timeFrame);
 			double meanFrameMeasure = 60000 / meanFrameTimestamp;
-			double meanFrameBeat = meanFrameMeasure / measure;
+			double meanFrameBeat = meanFrameMeasure / factor;
 
 			// current
 			double currentMeasure = 60000 / deltaTimestamp;
-			double currentBeat = currentMeasure / measure;
+			double currentBeat = currentMeasure / factor;
 
 			// variance
 			double variance = Calculator.varianceFilter(deltaTimestamps);
 			double upperTimestamp = meanTimestamp - variance;
 			double upperMeasure = 60000 / upperTimestamp;
-			double upperBeat = upperMeasure / measure;
+			double upperBeat = upperMeasure / factor;
 			double lowerTimestamp = meanTimestamp + variance;
 			double lowerMeasure = 60000 / lowerTimestamp;
-			double lowerBeat = lowerMeasure / measure;
+			double lowerBeat = lowerMeasure / factor;
 
 			// call observer
 			for (Observer observer : this.observer) {
 				// mean value
 				observer.triggerMeanValue(format1.format(meanBeat));
-				observer.triggerMeanValueRounded(Double.toString(Math.round(meanBeat)));
+				observer.triggerMeanValueRounded(format0.format(Math.round(meanBeat)));
 
 				// current
 				observer.triggerCurrentValue(format2.format(currentBeat));
@@ -150,10 +175,25 @@ public class Calculator {
 
 				// mean10
 				observer.triggerMean10Value(format1.format(meanFrameBeat));
-				observer.triggerMean10ValueRounded(Double.toString(Math.round(meanFrameBeat)));
+				observer.triggerMean10ValueRounded(format0.format(Math.round(meanFrameBeat)));
 			}
 		}
 	}
+
+	// ////////////////////////////////////////////////
+	// CLEAR CALCULATOR
+	// ////////////////////////////////////////////////
+
+	/**
+	 * clear the calculator
+	 */
+	public void clear() {
+		initCalculator();
+	}
+
+	// ////////////////////////////////////////////////
+	// SHIFT
+	// ////////////////////////////////////////////////
 
 	/**
 	 * @param value

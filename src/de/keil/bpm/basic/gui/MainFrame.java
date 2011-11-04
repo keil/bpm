@@ -25,6 +25,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.BMMimeMultipart;
+
 import de.keil.bpm.basic.core.Beat;
 import de.keil.bpm.basic.core.Calculator;
 import de.keil.bpm.basic.core.Measure;
@@ -69,8 +71,8 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 	// DEFAULT TEXT
 	private String defaultNumber = "00";
-	private String defaultDouble1 = "00.0";
-	private String defaultDouble2 = "00.00";
+	private String defaultDouble1 = "00,0";
+	private String defaultDouble2 = "00,00";
 
 	// Button
 	private Button bClear;
@@ -479,6 +481,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 * clears the values
 	 */
 	private void clear() {
+		// default text
 		lMeanValue.setText(defaultDouble1);
 		lMeanValueRounded.setText(defaultNumber);
 		lCurrentValue.setText(defaultDouble2);
@@ -487,6 +490,9 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		lMean10Value.setText(defaultDouble1);
 		lMean10ValueRounded.setText(defaultNumber);
 
+		// clear calculator
+		bpmCalculator.clear();
+		
 		// disable panel
 		deactivate();
 	}
