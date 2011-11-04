@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp
+  spec="6.0+"
+  codebase="http://rm-keil.de/projects/basicbpm"
+  href="swingset2.jnlp">
+  <information>
+    <title>basic BPM</title>
+    <vendor>Roman Matthias Keil</vendor>
+    <homepage href="http://rm-keil.de"/>
+    <description>basic BPM recorder</description>
+    <description kind="short">A demo of the capabilities 
+    of the Swing Graphical User Interface.</description>
+    <icon href="images/swingset2.jpg"/>
+    <icon kind="splash" href="images/splash.gif"/>
+    <offline-allowed/> 
+    <association mime-type="application-x/swingset2-file"  extensions="swingset2"/> 
+    <shortcut online="false">
+      <desktop/>
+      <menu submenu="My Corporation Apps"/>
+    </shortcut>
+  </information>
+  <information os="linux">   
+    <title> SwingSet2 Demo on Linux </title>
+    <homepage href="docs/linuxhelp.html">
+  </information>
+  <security>
+      <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.6+" java-vm-args="-esa -Xnoclassgc"/>
+    <jar href="lib/SwingSet2.jar"/>
+  </resources>
+  <application-desc main-class="Main"/>
+</jnlp>
