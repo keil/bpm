@@ -11,15 +11,15 @@
 		<description kind="short">basic BPM recorder</description>
 		<icon href="icon.gif"/>
 		<icon kind="splash" href="splash.gif"/>
-		<offline-allowed/> 
 		<shortcut online="false">
 			<desktop/>
 			<menu submenu="basic BMP"/>
 		</shortcut>
 	</information>
+	<offline-allowed/>
 	<resources>
 		<j2se version="1.6+"/>
 		<jar href="basicbpm.jar"/>
 	</resources>
-	<application-desc main-class="Main"/>
+	<application-desc main-class="de.keil.bpm.basic.Main"/>
 </jnlp>
