@@ -9,7 +9,7 @@
 		<homepage href="http://rm-keil.de"/>
 		<description>basic BPM recorder</description>
 		<description kind="short">basic BPM recorder</description>
-		<icon href="logo.gif"/>
+		<icon href="icon.gif"/>
 		<icon kind="splash" href="splash.gif"/>
 		<offline-allowed/> 
 		<shortcut online="false">
@@ -17,9 +17,6 @@
 			<menu submenu="basic BMP"/>
 		</shortcut>
 	</information>
-	<security>
-		<all-permissions/>
-	</security>
 	<resources>
 		<j2se version="1.6+"/>
 		<jar href="basicbpm.jar"/>
