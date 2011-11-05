@@ -190,7 +190,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if (e.getItem().toString().equals(Beat.BEAT44)) {
+				if (e.getItem().toString().equals(Beat.BEAT44.toString())) {
 					defaultBeat = Beat.BEAT44;
 				}
 				initCalculator();
@@ -220,11 +220,11 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		cMeasure.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if (e.getItem().toString().equals(Measure.BEATS1)) {
+				if (e.getItem().toString().equals(Measure.BEATS1.toString())) {
 					defaultMeasure = Measure.BEATS1;
-				} else if (e.getItem().toString().equals(Measure.BEATS2)) {
+				} else if (e.getItem().toString().equals(Measure.BEATS2.toString())) {
 					defaultMeasure = Measure.BEATS2;
-				} else if (e.getItem().toString().equals(Measure.BEATS4)) {
+				} else if (e.getItem().toString().equals(Measure.BEATS4.toString())) {
 					defaultMeasure = Measure.BEATS4;
 				}
 				initCalculator();
