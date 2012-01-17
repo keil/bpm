@@ -25,8 +25,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.BMMimeMultipart;
-
 import de.keil.bpm.basic.core.Beat;
 import de.keil.bpm.basic.core.Calculator;
 import de.keil.bpm.basic.core.Measure;
@@ -60,6 +58,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 	// COLORS
 	// TODO: Colors
+	// TODO common class
 	private Color headColor = new Color(204, 204, 204);
 	private Color bodyColor = new Color(221, 221, 221);
 	private Color redColor = new Color(204, 00, 00);
@@ -134,7 +133,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		setSize(frameSize);
 		setLocation(leftLocation, topLocation);
 
-		setVisible(true);
+		
 
 		addWindowListener(this);
 		addKeyListener(this);
@@ -142,6 +141,8 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// TODO
 		pack();
 		requestFocus();
+		
+		setVisible(true);
 	}
 
 	private void initCalculator() {

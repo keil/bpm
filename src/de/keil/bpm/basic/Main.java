@@ -2,8 +2,6 @@ package de.keil.bpm.basic;
 
 import java.awt.SplashScreen;
 
-import de.keil.bpm.basic.gui.MainFrame;
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -16,7 +14,6 @@ public class Main {
 		}
 		if(splash!=null) splash.close();
 
-		// Main Frame
-		new MainFrame();
+		new BasicBPM();
 	}
 }
