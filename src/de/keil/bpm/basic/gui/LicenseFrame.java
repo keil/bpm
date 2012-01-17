@@ -2,7 +2,6 @@ package de.keil.bpm.basic.gui;
 
 import java.awt.Button;
 import java.awt.Checkbox;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
@@ -13,20 +12,14 @@ import java.awt.TextArea;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringBufferInputStream;
 
 import de.keil.bpm.basic.BasicBPM;
 
@@ -42,15 +35,7 @@ public class LicenseFrame extends Frame implements WindowListener {
 	
 
 	private Font fontLabelSmall = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
-	
-	
-	private Color headColor = new Color(204, 204, 204);
-	private Color bodyColor = new Color(221, 221, 221);
-	private Color redColor = new Color(204, 00, 00);
-	private Color greenColor = new Color(00, 204, 00);
-	
-	private Color blueColor = new Color(00, 44, 77);
-	private Color grayColor = new Color(33, 33, 33);
+
 	
 	private Button bRun;
 	private Button bClose;
@@ -103,7 +88,7 @@ public class LicenseFrame extends Frame implements WindowListener {
 		tText = new TextArea();
 		tText.setText(this.license);
 		tText.setFont(fontLabelSmall);
-		tText.setForeground(blueColor);
+		tText.setForeground(Color.BLUE.getColor());
 		tText.setSize(600, 400);
 		tText.setEditable(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -114,7 +99,7 @@ public class LicenseFrame extends Frame implements WindowListener {
 
 		cAccept = new Checkbox("I signify my agreement to the Terms of Use", false);
 		cAccept.setFont(fontLabelSmall);
-		cAccept.setForeground(blueColor);
+		cAccept.setForeground(Color.BLUE.getColor());
 		cAccept.addItemListener(new ItemListener() {
 
 			@Override
@@ -135,12 +120,12 @@ public class LicenseFrame extends Frame implements WindowListener {
 
 		Panel basePanel = new Panel();
 		basePanel.setSize(50, 200);
-		basePanel.setBackground(bodyColor);
+		basePanel.setBackground(Color.BODY.getColor());
 		basePanel.setLayout(new GridBagLayout());
 
 		bClose = new Button("close");
 		bClose.setFont(fontLabelSmall);
-		bClose.setForeground(grayColor);
+		bClose.setForeground(Color.GRAY.getColor());
 		bClose.addActionListener(new ActionListener() {
 			
 			@Override
@@ -156,7 +141,7 @@ public class LicenseFrame extends Frame implements WindowListener {
 
 		bRun = new Button("accept");
 		bRun.setFont(fontLabelSmall);
-		bRun.setForeground(grayColor);
+		bRun.setForeground(Color.GRAY.getColor());
 		bRun.setEnabled(false);
 		bRun.addActionListener(new ActionListener() {
 

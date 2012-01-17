@@ -5,9 +5,7 @@ package de.keil.bpm.basic.gui;
 
 import java.awt.Button;
 import java.awt.Choice;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -49,23 +47,23 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	//
 	// private ArrayList<Long> timeFrame;
 
-	// FONTS
-	private Font fontLabelBig = new Font(Font.SANS_SERIF, Font.PLAIN, 16);
-	private Font fontLabelSmall = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
-	private Font fontValueSmall= new Font(Font.SANS_SERIF, Font.PLAIN, 20);
-	private Font fontValueNormal = new Font(Font.SANS_SERIF, Font.PLAIN, 28);
-	private Font fontValueBig = new Font(Font.SANS_SERIF, Font.PLAIN, 32);
+//	// FONTS
+//	private Font Font.BIGLABEL.getFont() = new Font(Font.SANS_SERIF, Font.PLAIN, 16);
+//	private Font Font.SMALLLABEL.getFont() = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+//	private Font Font.SMALLVALUE.getFont()= new Font(Font.SANS_SERIF, Font.PLAIN, 20);
+//	private Font Font.SMALLVALUE.getFont() = new Font(Font.SANS_SERIF, Font.PLAIN, 28);
+//	private Font Font.BIGVALUE.getFont() = new Font(Font.SANS_SERIF, Font.PLAIN, 32);
 
 	// COLORS
 	// TODO: Colors
 	// TODO common class
-	private Color headColor = new Color(204, 204, 204);
-	private Color bodyColor = new Color(221, 221, 221);
-	private Color redColor = new Color(204, 00, 00);
-	private Color greenColor = new Color(00, 204, 00);
-
-	private Color blueColor = new Color(00, 44, 77);
-	private Color grayColor = new Color(33, 33, 33);
+//	private Color Color.HEAD.getColor() = new Color(204, 204, 204);
+//	private Color Color.BODY.getColor() = new Color(221, 221, 221);
+//	private Color Color.RED.getColor() = new Color(204, 00, 00);
+//	private Color Color.GREEN.getColor() = new Color(00, 204, 00);
+//
+//	private Color Color.BLUE.getColor() = new Color(00, 44, 77);
+//	private Color Color.GRAY.getColor() = new Color(33, 33, 33);
 	
 
 	// DEFAULT TEXT
@@ -157,19 +155,19 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// TOP PANEL
 		Panel topPanel = new Panel();
 		topPanel.setSize(new Dimension(500, 100));
-		topPanel.setBackground(headColor);
+		topPanel.setBackground(Color.HEAD.getColor());
 		topPanel.setLayout(new GridBagLayout());
 
 		// LEFT PANEL
 		Panel leftPanel = new Panel();
 		leftPanel.setSize(300, 200);
-		leftPanel.setBackground(bodyColor);
+		leftPanel.setBackground(Color.BODY.getColor());
 		leftPanel.setLayout(new GridBagLayout());
 
 		// RIGHT PANEL
 		Panel rightPanel = new Panel();
 		rightPanel.setSize(200, 400);
-		rightPanel.setBackground(bodyColor);
+		rightPanel.setBackground(Color.BODY.getColor());
 		rightPanel.setLayout(new GridBagLayout());
 
 		// ////////////////////////////////////////////////
@@ -177,8 +175,8 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// ////////////////////////////////////////////////
 		
 		lBeat = new Label("Beat:");
-		lBeat.setFont(fontLabelSmall);
-		lBeat.setForeground(grayColor);
+		lBeat.setFont(Font.SMALLLABEL.getFont());
+		lBeat.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -206,8 +204,8 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		topPanel.add(cBeat, c);
 
 		lMeasure = new Label("Measure:");
-		lMeasure.setFont(fontLabelSmall);
-		lMeasure.setForeground(grayColor);
+		lMeasure.setFont(Font.SMALLLABEL.getFont());
+		lMeasure.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
@@ -268,7 +266,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// set key listener
 		lActive = new Label("IDLE");
 		lActive.setAlignment(Label.CENTER);
-		lActive.setBackground(redColor);
+		lActive.setBackground(Color.RED.getColor());
 		lActive.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -304,32 +302,32 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c = new GridBagConstraints();
 
 		lMeanLabel = new Label("Mean");
-		lMeanLabel.setFont(fontLabelBig);
-		lMeanLabel.setForeground(grayColor);
+		lMeanLabel.setFont(Font.BIGLABEL.getFont());
+		lMeanLabel.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		leftPanel.add(lMeanLabel, c);
 
 		lMeanValue = new Label(defaultDouble1);
-		lMeanValue.setFont(fontValueBig);
-		lMeanValue.setForeground(blueColor);
+		lMeanValue.setFont(Font.BIGVALUE.getFont());
+		lMeanValue.setForeground(Color.BLUE.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 0;
 		leftPanel.add(lMeanValue, c);
 
 		lMeanLabelRounded = new Label("Mean");
-		lMeanLabelRounded.setFont(fontLabelBig);
-		lMeanLabelRounded.setForeground(grayColor);
+		lMeanLabelRounded.setFont(Font.BIGLABEL.getFont());
+		lMeanLabelRounded.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
 		leftPanel.add(lMeanLabelRounded, c);
 
 		lMeanValueRounded = new Label(defaultNumber);
-		lMeanValueRounded.setFont(fontValueNormal);
-		lMeanValueRounded.setForeground(blueColor);
+		lMeanValueRounded.setFont(Font.SMALLVALUE.getFont());
+		lMeanValueRounded.setForeground(Color.BLUE.getColor());
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 1;
 		c.gridy = 1;
@@ -340,48 +338,48 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// ////////////////////////////////////////////////
 
 		lCurrentLabel = new Label("Current");
-		lCurrentLabel.setFont(fontLabelSmall);
-		lCurrentLabel.setForeground(grayColor);
+		lCurrentLabel.setFont(Font.SMALLLABEL.getFont());
+		lCurrentLabel.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		rightPanel.add(lCurrentLabel, c);
 
 		lCurrentValue = new Label(defaultDouble2);
-		lCurrentValue.setFont(fontValueSmall);
-		lCurrentValue.setForeground(blueColor);
+		lCurrentValue.setFont(Font.SMALLVALUE.getFont());
+		lCurrentValue.setForeground(Color.BLUE.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 0;
 		rightPanel.add(lCurrentValue, c);
 
 		lMeanUpperLabel = new Label("Upper Variance");
-		lMeanUpperLabel.setFont(fontLabelSmall);
-		lMeanUpperLabel.setForeground(grayColor);
+		lMeanUpperLabel.setFont(Font.SMALLLABEL.getFont());
+		lMeanUpperLabel.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
 		rightPanel.add(lMeanUpperLabel, c);
 
 		lMeanUpperValue = new Label(defaultDouble1);
-		lMeanUpperValue.setFont(fontValueSmall);
-		lMeanUpperValue.setForeground(blueColor);
+		lMeanUpperValue.setFont(Font.SMALLVALUE.getFont());
+		lMeanUpperValue.setForeground(Color.BLUE.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 1;
 		rightPanel.add(lMeanUpperValue, c);
 
 		lMeanLowerLabel = new Label("Lower Variance");
-		lMeanLowerLabel.setFont(fontLabelSmall);
-		lMeanLowerLabel.setForeground(grayColor);
+		lMeanLowerLabel.setFont(Font.SMALLLABEL.getFont());
+		lMeanLowerLabel.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 2;
 		rightPanel.add(lMeanLowerLabel, c);
 
 		lMeanLowerValue = new Label(defaultDouble1);
-		lMeanLowerValue.setFont(fontValueSmall);
-		lMeanLowerValue.setForeground(blueColor);
+		lMeanLowerValue.setFont(Font.SMALLVALUE.getFont());
+		lMeanLowerValue.setForeground(Color.BLUE.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 2;
@@ -397,32 +395,32 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 		// TODO: erster größer
 		lMean10Label = new Label("Frame");
-		lMean10Label.setFont(fontLabelSmall);
-		lMean10Label.setForeground(grayColor);
+		lMean10Label.setFont(Font.SMALLLABEL.getFont());
+		lMean10Label.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 3;
 		rightPanel.add(lMean10Label, c);
 
 		lMean10Value = new Label(defaultDouble1);
-		lMean10Value.setFont(fontValueSmall);
-		lMean10Value.setForeground(blueColor);
+		lMean10Value.setFont(Font.SMALLVALUE.getFont());
+		lMean10Value.setForeground(Color.BLUE.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 3;
 		rightPanel.add(lMean10Value, c);
 
 		lMean10LabelRounded = new Label("Frame");
-		lMean10LabelRounded.setFont(fontLabelSmall);
-		lMean10LabelRounded.setForeground(grayColor);
+		lMean10LabelRounded.setFont(Font.SMALLLABEL.getFont());
+		lMean10LabelRounded.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 4;
 		rightPanel.add(lMean10LabelRounded, c);
 
 		lMean10ValueRounded = new Label(defaultNumber);
-		lMean10ValueRounded.setFont(fontValueSmall);
-		lMean10ValueRounded.setForeground(blueColor);
+		lMean10ValueRounded.setFont(Font.SMALLVALUE.getFont());
+		lMean10ValueRounded.setForeground(Color.BLUE.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 4;
@@ -467,7 +465,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	private void activate() {
 		requestFocus();
 		lActive.setText("RECORD");
-		lActive.setBackground(greenColor);
+		lActive.setBackground(Color.GREEN.getColor());
 	}
 
 	/**
@@ -475,7 +473,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 */
 	private void deactivate() {
 		lActive.setText("IDLE");
-		lActive.setBackground(redColor);
+		lActive.setBackground(Color.RED.getColor());
 	}
 
 	/**
