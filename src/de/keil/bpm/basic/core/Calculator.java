@@ -89,7 +89,6 @@ public class Calculator {
 	 */
 	private void initCalculator() {
 		this.factor = beat.beats() / measure.beats();
-		/* TODO */System.out.println(this.factor);
 
 		this.deltaTimestamps = new ArrayList<Long>();
 		this.timeFrame = new ArrayList<Long>();

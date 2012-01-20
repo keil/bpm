@@ -23,6 +23,10 @@ import java.io.IOException;
 
 import de.keil.bpm.basic.BasicBPM;
 
+/**
+ * @author keil
+ *
+ */
 public class LicenseFrame extends Frame implements WindowListener {
 
 	/**
@@ -30,35 +34,32 @@ public class LicenseFrame extends Frame implements WindowListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
 	private BasicBPM basicBPM;
-	
 
 	private Font fontLabelSmall = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
 
-	
 	private Button bRun;
 	private Button bClose;
-	
+
 	private Checkbox cAccept;
 	private TextArea tText;
-	
+
 	private File file = new File("LICENSE");
 	private String license = "";
-	
+
 	public LicenseFrame(BasicBPM observer) {
 		super("Terms of Use");
-		
+
 		// TODO user interface
 		basicBPM = observer;
-		
+
 		try {
 			this.license = readLicense();
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(ERROR);
 		}
-		
+
 		initGUI();
 
 		Dimension frameSize = new Dimension(600, 400);
@@ -70,13 +71,11 @@ public class LicenseFrame extends Frame implements WindowListener {
 		setSize(frameSize);
 		setLocation(leftLocation, topLocation);
 
-		
-
 		addWindowListener(this);
 
 		pack();
 		requestFocus();
-		
+
 		setVisible(true);
 	}
 
@@ -97,17 +96,17 @@ public class LicenseFrame extends Frame implements WindowListener {
 		c.weightx = 600;
 		add(tText, c);
 
-		cAccept = new Checkbox("I signify my agreement to the Terms of Use", false);
+		cAccept = new Checkbox("I signify my agreement to the Terms of Use",
+				false);
 		cAccept.setFont(fontLabelSmall);
 		cAccept.setForeground(Color.BLUE.getColor());
 		cAccept.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				if(arg0.getStateChange() == ItemEvent.SELECTED) {
+				if (arg0.getStateChange() == ItemEvent.SELECTED) {
 					bRun.setEnabled(true);
-				}
-				else if(arg0.getStateChange() == ItemEvent.DESELECTED) {
+				} else if (arg0.getStateChange() == ItemEvent.DESELECTED) {
 					bRun.setEnabled(false);
 				}
 			}
@@ -127,7 +126,7 @@ public class LicenseFrame extends Frame implements WindowListener {
 		bClose.setFont(fontLabelSmall);
 		bClose.setForeground(Color.GRAY.getColor());
 		bClose.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(NORMAL);
@@ -150,9 +149,10 @@ public class LicenseFrame extends Frame implements WindowListener {
 				setVisible(false);
 				dispose();
 				basicBPM.run();
-				
-				//  this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-				//.
+
+				// this.dispatchEvent(new WindowEvent(this,
+				// WindowEvent.WINDOW_CLOSING));
+				// .
 				// TODO
 			}
 		});
@@ -171,21 +171,20 @@ public class LicenseFrame extends Frame implements WindowListener {
 
 	private String readLicense() throws IOException {
 		StringBuffer buffer = new StringBuffer();
-		
+
 		BufferedReader reader = new BufferedReader(new FileReader(file));
-		
+
 		String line = reader.readLine();
-		
-		while (line != null){
+
+		while (line != null) {
 			buffer.append(line);
 			buffer.append("\n");
 			line = reader.readLine();
 		}
-		
+
 		return buffer.toString();
 	}
-	
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 

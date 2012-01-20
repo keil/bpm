@@ -1,7 +1,6 @@
 package de.keil.bpm.model;
 
 import java.util.Arrays;
-import java.util.BitSet;
 
 public class Sample {
 

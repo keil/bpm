@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import de.keil.bpm.model.Frame;
 import de.keil.bpm.option.Options;
 
 /**

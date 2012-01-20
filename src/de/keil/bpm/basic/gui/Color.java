@@ -1,5 +1,9 @@
 package de.keil.bpm.basic.gui;
 
+/**
+ * @author keil
+ *
+ */
 public enum Color {
 	 HEAD(new java.awt.Color(204, 204, 204)),
 	 BODY(new java.awt.Color(221, 221, 221)),
@@ -10,11 +14,17 @@ public enum Color {
 
 	 private java.awt.Color mColor;
 
-	 private Color(java.awt.Color c) {
+	 /**
+	 * @param c
+	 */
+	private Color(java.awt.Color c) {
 		 mColor = c;
 	 }
 
-	 public java.awt.Color getColor() {
+	 /**
+	 * @return Color
+	 */
+	public java.awt.Color getColor() {
 	   return mColor;
 	 }
 }

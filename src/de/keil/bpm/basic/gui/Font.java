@@ -1,5 +1,9 @@
 package de.keil.bpm.basic.gui;
 
+/**
+ * @author keil
+ *
+ */
 public enum Font {
 	 BIGLABEL(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.PLAIN, 16)),
 	 SMALLLABEL(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.PLAIN, 12)),
@@ -9,11 +13,17 @@ public enum Font {
 
 	 private java.awt.Font mFont;
 
-	 private Font(java.awt.Font f) {
+	 /**
+	 * @param f
+	 */
+	private Font(java.awt.Font f) {
 		 mFont = f;
 	 }
 
-	 public java.awt.Font getFont() {
+	 /**
+	 * @return
+	 */
+	public java.awt.Font getFont() {
 	   return mFont;
 	 }
 }
