@@ -27,7 +27,7 @@ import de.keil.bpm.basic.core.Beat;
 import de.keil.bpm.basic.core.Calculator;
 import de.keil.bpm.basic.core.Measure;
 import de.keil.bpm.basic.interfaces.Observer;
- 
+
 // TODO: todo
 // - zweite berechnungsvariante
 // - pack()
@@ -47,24 +47,28 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	//
 	// private ArrayList<Long> timeFrame;
 
-//	// FONTS
-//	private Font Font.BIGLABEL.getFont() = new Font(Font.SANS_SERIF, Font.PLAIN, 16);
-//	private Font Font.SMALLLABEL.getFont() = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
-//	private Font Font.SMALLVALUE.getFont()= new Font(Font.SANS_SERIF, Font.PLAIN, 20);
-//	private Font Font.SMALLVALUE.getFont() = new Font(Font.SANS_SERIF, Font.PLAIN, 28);
-//	private Font Font.BIGVALUE.getFont() = new Font(Font.SANS_SERIF, Font.PLAIN, 32);
+	// // FONTS
+	// private Font Font.BIGLABEL.getFont() = new Font(Font.SANS_SERIF,
+	// Font.PLAIN, 16);
+	// private Font Font.SMALLLABEL.getFont() = new Font(Font.SANS_SERIF,
+	// Font.PLAIN, 12);
+	// private Font Font.SMALLVALUE.getFont()= new Font(Font.SANS_SERIF,
+	// Font.PLAIN, 20);
+	// private Font Font.SMALLVALUE.getFont() = new Font(Font.SANS_SERIF,
+	// Font.PLAIN, 28);
+	// private Font Font.BIGVALUE.getFont() = new Font(Font.SANS_SERIF,
+	// Font.PLAIN, 32);
 
 	// COLORS
 	// TODO: Colors
 	// TODO common class
-//	private Color Color.HEAD.getColor() = new Color(204, 204, 204);
-//	private Color Color.BODY.getColor() = new Color(221, 221, 221);
-//	private Color Color.RED.getColor() = new Color(204, 00, 00);
-//	private Color Color.GREEN.getColor() = new Color(00, 204, 00);
-//
-//	private Color Color.BLUE.getColor() = new Color(00, 44, 77);
-//	private Color Color.GRAY.getColor() = new Color(33, 33, 33);
-	
+	// private Color Color.HEAD.getColor() = new Color(204, 204, 204);
+	// private Color Color.BODY.getColor() = new Color(221, 221, 221);
+	// private Color Color.RED.getColor() = new Color(204, 00, 00);
+	// private Color Color.GREEN.getColor() = new Color(00, 204, 00);
+	//
+	// private Color Color.BLUE.getColor() = new Color(00, 44, 77);
+	// private Color Color.GRAY.getColor() = new Color(33, 33, 33);
 
 	// DEFAULT TEXT
 	private String defaultNumber = "00";
@@ -120,7 +124,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		initCalculator();
 		initGUI();
 		clear();
-		
 
 		Dimension frameSize = new Dimension(400, 600);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -131,16 +134,13 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		setSize(frameSize);
 		setLocation(leftLocation, topLocation);
 
-		
-
 		addWindowListener(this);
 		addKeyListener(this);
-		
+
 		// TODO
 		pack();
-		requestFocus();
-		
 		setVisible(true);
+		requestFocus();
 	}
 
 	private void initCalculator() {
@@ -173,7 +173,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		// ////////////////////////////////////////////////
 		// TOP
 		// ////////////////////////////////////////////////
-		
+
 		lBeat = new Label("Beat:");
 		lBeat.setFont(Font.SMALLLABEL.getFont());
 		lBeat.setForeground(Color.GRAY.getColor());
@@ -260,7 +260,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c.gridx = 3;
 		c.gridy = 0;
 		topPanel.add(bStart, c);
-		
+
 		// color green
 		// blink
 		// set key listener
@@ -437,13 +437,13 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c.anchor = GridBagConstraints.PAGE_START;
 		c.gridwidth = 2;
 		c.weightx = 1;
-		//c.weighty = 1;
+		// c.weighty = 1;
 		c.gridx = 0;
 		c.gridy = 0;
-//		c.ipadx = 300;
-//		c.ipady = 100;
+		// c.ipadx = 300;
+		// c.ipady = 100;
 		add(topPanel, c);
-		
+
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.gridwidth = 1;
@@ -491,7 +491,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 		// clear calculator
 		bpmCalculator.clear();
-		
+
 		// disable panel
 		deactivate();
 	}
@@ -503,7 +503,18 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		this.bpmCalculator.trigger();
+
+		switch (e.getKeyChar()) {
+		case 'c':
+		case 'C':
+		case KeyEvent.VK_ESCAPE:
+			clear();
+			break;
+
+		default:
+			activate();
+			this.bpmCalculator.trigger();
+		}
 	}
 
 	/*
