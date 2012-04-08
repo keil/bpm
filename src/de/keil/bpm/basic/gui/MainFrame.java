@@ -28,9 +28,9 @@ import de.keil.bpm.basic.core.Calculator;
 import de.keil.bpm.basic.core.Measure;
 import de.keil.bpm.basic.interfaces.Observer;
 
-// TODO: todo
-// - zweite berechnungsvariante
-// - pack()
+// TODO:
+// * second calculator type (time recording)
+// ** timer 
 
 /**
  * @author keil
@@ -76,8 +76,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	private Label lMean10LabelRounded;
 	private Label lMean10ValueRounded;
 
-	//
-
 	private Label lActive;
 
 	// TODO 10 messungs state
@@ -90,9 +88,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 
 	public MainFrame() {
 		super("basic bpm");
-
-		// bpmCalculator = new Calculator(defaultBeats, defaultMeasure, this);
-		// // TODO, selection
 
 		initCalculator();
 		initGUI();
@@ -110,7 +105,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		addWindowListener(this);
 		addKeyListener(this);
 
-		// TODO
 		pack();
 		setVisible(true);
 		requestFocus();
@@ -234,9 +228,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c.gridy = 0;
 		topPanel.add(bStart, c);
 
-		// color green
-		// blink
-		// set key listener
 		lActive = new Label("IDLE");
 		lActive.setAlignment(Label.CENTER);
 		lActive.setBackground(Color.RED.getColor());
@@ -326,7 +317,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c.gridy = 0;
 		rightPanel.add(lCurrentValue, c);
 
-		lMeanUpperLabel = new Label("Upper Variance");
+		lMeanUpperLabel = new Label("Upper Deviation");
 		lMeanUpperLabel.setFont(Font.SMALLLABEL.getFont());
 		lMeanUpperLabel.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -342,7 +333,7 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c.gridy = 1;
 		rightPanel.add(lMeanUpperValue, c);
 
-		lMeanLowerLabel = new Label("Lower Variance");
+		lMeanLowerLabel = new Label("Lower Deviation");
 		lMeanLowerLabel.setFont(Font.SMALLLABEL.getFont());
 		lMeanLowerLabel.setForeground(Color.GRAY.getColor());
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -358,15 +349,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c.gridy = 2;
 		rightPanel.add(lMeanLowerValue, c);
 
-		// /////////
-
-		// TODO SPACE LINE
-
-		// /////////
-
-		// /////
-
-		// TODO: erster größer
 		lMean10Label = new Label("Frame");
 		lMean10Label.setFont(Font.SMALLLABEL.getFont());
 		lMean10Label.setForeground(Color.GRAY.getColor());
@@ -398,8 +380,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		c.gridx = 1;
 		c.gridy = 4;
 		rightPanel.add(lMean10ValueRounded, c);
-
-		// TODO Active panel
 
 		// ////////////////////////////////////////////////
 		// BASE
