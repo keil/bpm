@@ -42,33 +42,6 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	// private ArrayList<Long> timestamps;
-	// private long lastTimestamp;
-	//
-	// private ArrayList<Long> timeFrame;
-
-	// // FONTS
-	// private Font Font.BIGLABEL.getFont() = new Font(Font.SANS_SERIF,
-	// Font.PLAIN, 16);
-	// private Font Font.SMALLLABEL.getFont() = new Font(Font.SANS_SERIF,
-	// Font.PLAIN, 12);
-	// private Font Font.SMALLVALUE.getFont()= new Font(Font.SANS_SERIF,
-	// Font.PLAIN, 20);
-	// private Font Font.SMALLVALUE.getFont() = new Font(Font.SANS_SERIF,
-	// Font.PLAIN, 28);
-	// private Font Font.BIGVALUE.getFont() = new Font(Font.SANS_SERIF,
-	// Font.PLAIN, 32);
-
-	// COLORS
-	// TODO: Colors
-	// TODO common class
-	// private Color Color.HEAD.getColor() = new Color(204, 204, 204);
-	// private Color Color.BODY.getColor() = new Color(221, 221, 221);
-	// private Color Color.RED.getColor() = new Color(204, 00, 00);
-	// private Color Color.GREEN.getColor() = new Color(00, 204, 00);
-	//
-	// private Color Color.BLUE.getColor() = new Color(00, 44, 77);
-	// private Color Color.GRAY.getColor() = new Color(33, 33, 33);
 
 	// DEFAULT TEXT
 	private String defaultNumber = "00";
