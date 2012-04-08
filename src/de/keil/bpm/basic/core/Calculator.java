@@ -58,7 +58,6 @@ public class Calculator {
 	 * standard formatter
 	 */
 	private final DecimalFormat format2 = new DecimalFormat("0.00");
-	
 
 	/**
 	 * @param beats
@@ -151,14 +150,15 @@ public class Calculator {
 			double currentMeasure = 60000 / deltaTimestamp;
 			double currentBeat = currentMeasure / factor;
 
-			// variance
-			double variance = Calculator.varianceFilter(deltaTimestamps);
-			double upperTimestamp = meanTimestamp - variance;
+			// deviation
+			double deviation = Calculator.deviationFilter(deltaTimestamps);
+
+			double upperTimestamp = meanTimestamp - deviation;
 			double upperMeasure = 60000 / upperTimestamp;
-			double upperBeat = upperMeasure / factor;
-			double lowerTimestamp = meanTimestamp + variance;
+			double upperBeat = (upperMeasure / factor);
+			double lowerTimestamp = meanTimestamp + deviation;
 			double lowerMeasure = 60000 / lowerTimestamp;
-			double lowerBeat = lowerMeasure / factor;
+			double lowerBeat = (lowerMeasure / factor);
 
 			// call observer
 			for (Observer observer : this.observer) {
@@ -233,10 +233,19 @@ public class Calculator {
 		double sum = 0;
 
 		for (long l : source) {
-			double delta = (l - mean);
-			sum += Math.abs(delta);
+			double delta = (((double) l) - mean);
+			sum += Math.pow(delta, 2);
 			counter++;
 		}
 		return sum / counter;
+	}
+
+	/**
+	 * @param source
+	 * @return
+	 */
+	public static double deviationFilter(ArrayList<Long> source) {
+		double variance = varianceFilter(source);
+		return Math.sqrt(variance);
 	}
 }
