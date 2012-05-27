@@ -461,6 +461,8 @@ public class MainFrame extends Frame implements WindowListener, KeyListener, Obs
 		case 'c':
 		case 'C':
 		case KeyEvent.VK_ESCAPE:
+		case KeyEvent.VK_DELETE:
+		case KeyEvent.VK_BACK_SPACE:
 			clear();
 			break;
 
